@@ -1,0 +1,17 @@
+D:\Projects\ReplaceText\ReplaceText\bin\Release\net6.0-windows\ReplaceText.exe
+D:\Projects\ReplaceText\ReplaceText\bin\Release\net6.0-windows\ReplaceText.deps.json
+D:\Projects\ReplaceText\ReplaceText\bin\Release\net6.0-windows\ReplaceText.runtimeconfig.json
+D:\Projects\ReplaceText\ReplaceText\bin\Release\net6.0-windows\ReplaceText.dll
+D:\Projects\ReplaceText\ReplaceText\bin\Release\net6.0-windows\ReplaceText.pdb
+D:\Projects\ReplaceText\ReplaceText\obj\Release\net6.0-windows\ReplaceText.csproj.AssemblyReference.cache
+D:\Projects\ReplaceText\ReplaceText\obj\Release\net6.0-windows\ReplaceText.ReplaceText.resources
+D:\Projects\ReplaceText\ReplaceText\obj\Release\net6.0-windows\ReplaceText.csproj.GenerateResource.cache
+D:\Projects\ReplaceText\ReplaceText\obj\Release\net6.0-windows\ReplaceText.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\ReplaceText\ReplaceText\obj\Release\net6.0-windows\ReplaceText.AssemblyInfoInputs.cache
+D:\Projects\ReplaceText\ReplaceText\obj\Release\net6.0-windows\ReplaceText.AssemblyInfo.cs
+D:\Projects\ReplaceText\ReplaceText\obj\Release\net6.0-windows\ReplaceText.csproj.CoreCompileInputs.cache
+D:\Projects\ReplaceText\ReplaceText\obj\Release\net6.0-windows\ReplaceText.dll
+D:\Projects\ReplaceText\ReplaceText\obj\Release\net6.0-windows\refint\ReplaceText.dll
+D:\Projects\ReplaceText\ReplaceText\obj\Release\net6.0-windows\ReplaceText.pdb
+D:\Projects\ReplaceText\ReplaceText\obj\Release\net6.0-windows\ReplaceText.genruntimeconfig.cache
+D:\Projects\ReplaceText\ReplaceText\obj\Release\net6.0-windows\ref\ReplaceText.dll
