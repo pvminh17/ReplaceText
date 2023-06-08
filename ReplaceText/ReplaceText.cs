@@ -5,9 +5,9 @@ namespace ReplaceText
 {
     public partial class ReplaceText : Form
     {
-        private const string PATTERN_HTML = @"[\p{L}\p{N}\s\!\?\.\,\(\)\/\\\-]*[ĂăÂâĐđÊêƠơƯưÀÁÃẠẰắẴẶỀếỄệÈÉẺẼÌÍỈĨÒÓÕỌỒốỖỘỜỚỠỢÙÚŨỤỪỨỮỰỲÝỶỸàáãạằẵặềếễệèéẻẽìíỉĩòóõọồốỗộờớỡợùúũụừứữựỳýỷỹ]+[\p{L}\p{N}\s\!\?\.\,\(\)\/\\\-]*";
-        private const string PATTERN_JS = @"[\""\']+[\p{L}\p{N}\s\!\?\.\,\(\)\:\/\\\-]*[ĂăÂâĐđÊêƠơƯưÀÁÃẠẰắẴẶỀếỄệÈÉẺẼÌÍỈĨÒÓÕỌỒốỖỘỜỚỠỢÙÚŨỤỪỨỮỰỲÝỶỸàáãạằẵặềếễệèéẻẽìíỉĩòóõọồốỗộờớỡợùúũụừứữựỳýỷỹ]+[\p{L}\p{N}\s\!\?\.\,\(\)\:\/\\-]*[\""\']+";
-        private const string PATTERN_CS = @"[\""\']+[\p{L}\p{N}\s\!\?\.\,\(\)\:\/\\\-]*[ĂăÂâĐđÊêƠơƯưÀÁÃẠẰắẴẶỀếỄệÈÉẺẼÌÍỈĨÒÓÕỌỒốỖỘỜỚỠỢÙÚŨỤỪỨỮỰỲÝỶỸàáãạằẵặềếễệèéẻẽìíỉĩòóõọồốỗộờớỡợùúũụừứữựỳýỷỹ]+[\p{L}\p{N}\s\!\?\.\,\(\)\:\/\\\-]*[\""\']+";
+        private const string PATTERN_HTML = @"[\p{L}\p{N}\s\!\?\.\,\(\)\/\\\-]*[ầấẫẩẦẤẪẨĂăÂâẬậĐđÊêƠơƯưÀÁÃẠẰắẴẶỀếỄệÈÉẺẼÌÍỈĨÒÓÕỌỒốỖỘỜỚỠỢÙÚŨỤỪỨỮỰỲÝỶỸàáãạằẵặềếễệèéẻẽìíỉĩòóõọỏồốỗộôờớỡợùúũụừứữựỳýỷỹ]+[\p{L}\p{N}\s\!\?\.\,\(\)\/\\\-]*";
+        private const string PATTERN_JS = @"[\""\']+[\p{L}\p{N}\s\!\?\.\,\(\)\:\/\\\-]*[ầấẫẩẦẤẪẨĂăÂâẬậĐđÊêƠơƯưÀÁÃẠẰắẴẶỀếỄệÈÉẺẼÌÍỈĨÒÓÕỌỒốỖỘỜỚỠỢÙÚŨỤỪỨỮỰỲÝỶỸàáãạằẵặềếễệèéẻẽìíỉĩòóõọỏồốỗôộờớỡợùúũụừứữựỳýỷỹ]+[\p{L}\p{N}\s\!\?\.\,\(\)\:\/\\-]*[\""\']+";
+        private const string PATTERN_CS = @"[\""\']+[\p{L}\p{N}\s\!\?\.\,\(\)\:\/\\\-]*[ầấẫẩẦẤẪẨĂăÂâẬậĐđÊêƠơƯưÀÁÃẠẰắẴẶỀếỄệÈÉẺẼÌÍỈĨÒÓÕỌỒốỖỘỜỚỠỢÙÚŨỤỪỨỮỰỲÝỶỸàáãạằẵặềếễệèéẻẽìíỉĩòóõọỏồốôỗộờớỡợùúũụừứữựỳýỷỹ]+[\p{L}\p{N}\s\!\?\.\,\(\)\:\/\\\-]*[\""\']+";
         public ReplaceText()
         {
             InitializeComponent();
@@ -44,6 +44,7 @@ namespace ReplaceText
 
         private string ReplaceVietnameseInCS()
         {
+            File.AppendText("D:\\Temp\\log_repalce.txt");
             try
             {
                 List<String> rs = new List<String>();
@@ -52,9 +53,10 @@ namespace ReplaceText
                 foreach (string line in linesMap)
                 {
                     string key = getContainKey(map, line);
-                    if (!String.IsNullOrEmpty(key))
+                    if (!String.IsNullOrEmpty(key) && line.IndexOf("AddErrorLog") < 0)
                     {
                         rs.Add(line.Replace(key, map[key]) + " // " + key);
+                        
                     }
                     else
                     {
@@ -104,13 +106,14 @@ namespace ReplaceText
             {
                 List<String> rs = new List<String>();
                 Dictionary<string, string> map = genarateMapBinding();
+
                 string[] linesMap = txtSourceTxt.Text.Split(new[] { '\n', '\r' });
                 foreach (string line in linesMap)
                 {
                     string key = getContainKey(map, line);
                     if (!String.IsNullOrEmpty(key))
                     {
-                        rs.Add(line.Replace(key, "@T(\"" + map[key] + "\")") + " @*" + key + "*@");
+                        rs.Add(line.Replace(key, "@T(\"" + map[key] + "\")") + "\n @*" + key + "*@");
                     }
                     else
                     {
@@ -219,6 +222,11 @@ namespace ReplaceText
                     sbResult.AppendLine(str);
             }
             return sbResult.ToString();
+        }
+
+        private void btnFindWithPattern_Click(object sender, EventArgs e)
+        {
+            txtResultText.Text = findStringWithPattern(txtSourceTxt.Text, txtPattern.Text.Trim());
         }
     }
 }

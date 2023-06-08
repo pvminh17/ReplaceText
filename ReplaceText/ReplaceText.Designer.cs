@@ -38,6 +38,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnExecute = new System.Windows.Forms.Button();
             this.btnFindAllVietnameseText = new System.Windows.Forms.Button();
+            this.btnFindWithPattern = new System.Windows.Forms.Button();
+            this.txtPattern = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // txtSourceTxt
@@ -128,11 +130,30 @@
             this.btnFindAllVietnameseText.UseVisualStyleBackColor = true;
             this.btnFindAllVietnameseText.Click += new System.EventHandler(this.btnFindAllVietnameseText_Click);
             // 
+            // btnFindWithPattern
+            // 
+            this.btnFindWithPattern.Location = new System.Drawing.Point(942, 15);
+            this.btnFindWithPattern.Name = "btnFindWithPattern";
+            this.btnFindWithPattern.Size = new System.Drawing.Size(218, 23);
+            this.btnFindWithPattern.TabIndex = 10;
+            this.btnFindWithPattern.Text = "btnFindWithPattern";
+            this.btnFindWithPattern.UseVisualStyleBackColor = true;
+            this.btnFindWithPattern.Click += new System.EventHandler(this.btnFindWithPattern_Click);
+            // 
+            // txtPattern
+            // 
+            this.txtPattern.Location = new System.Drawing.Point(942, 44);
+            this.txtPattern.Name = "txtPattern";
+            this.txtPattern.Size = new System.Drawing.Size(521, 23);
+            this.txtPattern.TabIndex = 11;
+            // 
             // ReplaceText
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1533, 902);
+            this.Controls.Add(this.txtPattern);
+            this.Controls.Add(this.btnFindWithPattern);
             this.Controls.Add(this.btnFindAllVietnameseText);
             this.Controls.Add(this.btnExecute);
             this.Controls.Add(this.label4);
@@ -162,5 +183,7 @@
         private Label label4;
         private Button btnExecute;
         private Button btnFindAllVietnameseText;
+        private Button btnFindWithPattern;
+        private TextBox txtPattern;
     }
 }
