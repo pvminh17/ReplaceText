@@ -1,13 +1,15 @@
-﻿using System.Text;
+﻿using Microsoft.VisualBasic.Devices;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace ReplaceText
 {
     public partial class ReplaceText : Form
     {
-        private const string PATTERN_HTML = @"[\p{L}\p{N}\s\!\?\.\,\(\)\/\\\-]*[ầấẫẩẦẤẪẨĂăÂâẬậĐđÊêƠơƯưÀÁÃẠẰắẴẶỀếỄệÈÉẺẼÌÍỈĨÒÓÕỌỒốỖỘỜỚỠỢÙÚŨỤỪỨỮỰỲÝỶỸàáãạằẵặềếễệèéẻẽìíỉĩòóõọỏồốỗộôờớỡợùúũụừứữựỳýỷỹ]+[\p{L}\p{N}\s\!\?\.\,\(\)\/\\\-]*";
-        private const string PATTERN_JS = @"[\""\']+[\p{L}\p{N}\s\!\?\.\,\(\)\:\/\\\-]*[ầấẫẩẦẤẪẨĂăÂâẬậĐđÊêƠơƯưÀÁÃẠẰắẴẶỀếỄệÈÉẺẼÌÍỈĨÒÓÕỌỒốỖỘỜỚỠỢÙÚŨỤỪỨỮỰỲÝỶỸàáãạằẵặềếễệèéẻẽìíỉĩòóõọỏồốỗôộờớỡợùúũụừứữựỳýỷỹ]+[\p{L}\p{N}\s\!\?\.\,\(\)\:\/\\-]*[\""\']+";
-        private const string PATTERN_CS = @"[\""\']+[\p{L}\p{N}\s\!\?\.\,\(\)\:\/\\\-]*[ầấẫẩẦẤẪẨĂăÂâẬậĐđÊêƠơƯưÀÁÃẠẰắẴẶỀếỄệÈÉẺẼÌÍỈĨÒÓÕỌỒốỖỘỜỚỠỢÙÚŨỤỪỨỮỰỲÝỶỸàáãạằẵặềếễệèéẻẽìíỉĩòóõọỏồốôỗộờớỡợùúũụừứữựỳýỷỹ]+[\p{L}\p{N}\s\!\?\.\,\(\)\:\/\\\-]*[\""\']+";
+        private const string COMMON_VN_REGEX = @"[ầấẫẩẦẤẪẨĂăÂâẬậĐđÊêƠơƯưÀÁÃẠẰắẴẶỀếỄệÈÉẺẼÌÍỈĨÒÓÕỌỒốỖỘỜỚỠỢÙÚŨỤỪỨỮỰỲÝỶỸàáãạằẵặềếễệèéẻẽìíỉĩòóõọỏồốỗộôờớỡợùúũụừứữựỳýỷỹ]";
+        private const string PATTERN_HTML = @"[\p{L}\p{N}\s\!\?\.\,\(\)\/\\\-\[\]\{\}]*" + COMMON_VN_REGEX + @"+[\p{L}\p{N}\s\!\?\.\,\(\)\/\\\-\[\]\{\}]*";
+        private const string PATTERN_JS = @"[\""\']+[\p{L}\p{N}\s\!\?\.\,\(\)\:\/\\\-\[\]\{\}]*" + COMMON_VN_REGEX + @"+[\p{L}\p{N}\s\!\?\.\,\(\)\:\/\\-\[\]\{\}]*[\""\']+";
+        private const string PATTERN_CS = @"[\""\']+[\p{L}\p{N}\s\!\?\.\,\(\)\:\/\\\-\[\]\{\}]*" + COMMON_VN_REGEX + @"+[\p{L}\p{N}\s\!\?\.\,\(\)\:\/\\\-\[\]\{\}]*[\""\']+";
         public ReplaceText()
         {
             InitializeComponent();
@@ -53,7 +55,12 @@ namespace ReplaceText
                 foreach (string line in linesMap)
                 {
                     string key = getContainKey(map, line);
-                    if (!String.IsNullOrEmpty(key) && line.IndexOf("AddErrorLog") < 0)
+                    if (!String.IsNullOrEmpty(key) 
+                        //not contain string
+                        && line.IndexOf("AddErrorLog") < 0
+                        && line.IndexOf("SystemErrorWS") < 0
+                        
+                        )
                     {
                         rs.Add(line.Replace(key, map[key]) + " // " + key);
                         
@@ -185,7 +192,9 @@ namespace ReplaceText
             strSource = Regex.Replace(strSource, @"//.*", "");
 
             // Remove multi-line comments starting with "/*" and ending with "*/"
-            strSource = Regex.Replace(strSource, @"/\*.*?\*/", "", RegexOptions.Singleline);
+            strSource = Regex.Replace(strSource, @"/\*.*?\*/", "", RegexOptions.Multiline);
+
+            strSource = Regex.Replace(strSource, $".*{"SystemErrorWS"}+.*$", "", RegexOptions.Multiline);
 
             return findStringWithPattern(strSource, PATTERN_CS);
         }
